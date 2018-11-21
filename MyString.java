@@ -21,7 +21,11 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
   }
 
   public String toString() {
-    return "";
+    String result = "";
+    for (int i = 0; i < data.length; i++) {
+      
+    }
+    return result;
   }
 
   public int compareTo(CharSequence o){
@@ -30,6 +34,7 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
 
   public static void main(String[]args) {
     MyString tester = new MyString("thisisatest");
+    System.out.println(tester); //should print ""
     System.out.println(tester.charAt(0)); //should be 't'
     System.out.println(tester.charAt(9)); //should be 's'
     System.out.println(tester.length()); //should be 11
