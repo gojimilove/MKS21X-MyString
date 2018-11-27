@@ -21,6 +21,7 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
 
   public CharSequence subSequence(int start, int end) throws IndexOutOfBoundsException{
     CharSequence sub = "";
+    //throw exception if out of bounds
     if (start > end || end < 0 || start < 0 || end >= data.length) throw new IndexOutOfBoundsException();
     //add all chars in that range to the charSequence from the array
     for (int i = start; i < end; i++) {
@@ -38,7 +39,7 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
   }
 
   public int compareTo(CharSequence o) throws NullPointerException{
-  	//loop through array unless limit is reached or theres a difference in characters
+  	//loop through array unless limit is reached or theres a difference in characters, return -1, 0, or 1
   	for (int i = 0; (i < this.length() || i < o.length()); i++) {
   		 if (this.charAt(i) > o.charAt(i)) return 1;
   		 if (this.charAt(i) < o.charAt(i)) return -1;
