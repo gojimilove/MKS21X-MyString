@@ -39,11 +39,14 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
   }
 
   public int compareTo(CharSequence o) throws NullPointerException{
+
   	//loop through array unless limit is reached or theres a difference in characters, return -1, 0, or 1
-  	for (int i = 0; (i < this.length() || i < o.length()); i++) {
+  	for (int i = 0; (i < this.length() && i < o.length()); i++) {
   		 if (this.charAt(i) > o.charAt(i)) return 1;
   		 if (this.charAt(i) < o.charAt(i)) return -1;
   	}
+  	if (this.length() > o.length()) return 1;
+  	if (this.length() < o.length()) return -1;
     return 0;
   }
 
