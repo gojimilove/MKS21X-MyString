@@ -1,5 +1,6 @@
 public class MyString implements CharSequence,Comparable<CharSequence> {
   private char[] data;
+
   public MyString(CharSequence s) {
     data = new char[s.length()];
     for (int i = 0; i < s.length(); i++) {
@@ -16,7 +17,11 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
   }
 
   public CharSequence subSequence(int start, int end) {
+    if (start == end) return "";
     CharSequence sub = "";
+    for (int i = start; i < end; i++) {
+    	sub += (""+data[i]);
+    }
     return sub;
   }
 
@@ -38,5 +43,6 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
     System.out.println(tester.charAt(0)); //should be 't'
     System.out.println(tester.charAt(9)); //should be 's'
     System.out.println(tester.length()); //should be 11
+    System.out.println(tester.subSequence(1, 4)); //should be "his"
   }
 }
