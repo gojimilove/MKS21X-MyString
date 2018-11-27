@@ -10,7 +10,7 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
     }
   }
 
-  public char charAt(int index) throws ArrayIndexOutOfBoundsException{
+  public char charAt(int index) throws IndexOutOfBoundsException{
     //stop if the the index is out of range, otherwise return char at index index of data
     return data[index];
   }
@@ -19,9 +19,9 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
     return data.length;
   }
 
-  public CharSequence subSequence(int start, int end) {
-    if (start < 0 || end > data.length - 1) throw new ArrayIndexOutOfBoundsException("Either the starting or ending index is our of bounds! (or both)");
+  public CharSequence subSequence(int start, int end) throws IndexOutOfBoundsException{
     CharSequence sub = "";
+    if (start > end || end < 0 || start < 0 || end >= data.length) throw new IndexOutOfBoundsException();
     //add all chars in that range to the charSequence from the array
     for (int i = start; i < end; i++) {
     	sub += (""+data[i]);
@@ -37,7 +37,7 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
     return result;
   }
 
-  public int compareTo(CharSequence o){
+  public int compareTo(CharSequence o) throws NullPointerException{
   	//loop through array unless limit is reached or theres a difference in characters
   	for (int i = 0; (i < this.length() || i < o.length()); i++) {
   		 if (this.charAt(i) > o.charAt(i)) return 1;
@@ -52,14 +52,29 @@ public class MyString implements CharSequence,Comparable<CharSequence> {
     try {
     	System.out.println(tester.charAt(0)); //should be 't'
     	System.out.println(tester.charAt(9)); //should be 's'
-    	//System.out.println(tester.charAt(20)); //should be 's'
-    } catch (ArrayIndexOutOfBoundsException e) {
-    	System.out.println("TESTING");
+    	System.out.println(tester.charAt(20)); //should be error
+    	System.out.println(tester.charAt(-5)); //should be error
+    } catch (IndexOutOfBoundsException e) {
+    	System.out.println("Error: index is negative or less than the length");
     }
     System.out.println(tester.length()); //should be 11
-    System.out.println(tester.subSequence(1, 4)); //should be "his"
-    System.out.println(tester.compareTo("thiswasatest")); //should be -1
-    System.out.println(tester.compareTo("thatwasatest")); //should be 1
-    System.out.println(tester.compareTo("thisisatest")); //should be 0
+    try {
+    	System.out.println(tester.subSequence(1, 4)); //should be "his"
+    	System.out.println(tester.subSequence(1, 1)); //should be ""
+    	System.out.println(tester.subSequence(1, 20)); //should be error
+    	System.out.println(tester.subSequence(1, -4)); //should be error
+    	System.out.println(tester.subSequence(-1, 4)); //should be error
+    	System.out.println(tester.subSequence(3, 2)); //should be error
+    } catch (IndexOutOfBoundsException e) {
+    	System.out.println("Error: either start or end are negative, end is greater than the length, or start is greater than end");
+    }
+    try {
+    	System.out.println(tester.compareTo("thiswasatest")); //should be -1
+    	System.out.println(tester.compareTo("thatwasatest")); //should be 1
+    	System.out.println(tester.compareTo("thisisatest")); //should be 0
+    	System.out.println(tester.compareTo(null)); //should be error
+    } catch(NullPointerException e) {
+    	System.out.println("Error: specified object cannot be null");
+    }
   }
 }
